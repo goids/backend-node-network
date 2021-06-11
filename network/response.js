@@ -15,5 +15,5 @@ exports.error = function(req, res, message, status){
         error: statusMessage,
         status,
         body: message,
-    })
-}
+    });
+};
