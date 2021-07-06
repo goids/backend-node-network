@@ -1,0 +1,156 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "API de una red social en NodeJS",
+      "version": "1.0.0",
+      "title": "Red Social Goidev"
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "user",
+        "description": "Operaciones sobre el usuario"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/user": {
+        "post": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Crear un usuario",
+          "description": "Crea un usuario en nuestra api",
+          "operationId": "createUser",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Crea un objeto usuario",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          }
+        }
+      },
+      "/user/": {
+        "get": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Obtener todos los usuarios",
+          "description": "",
+          "operationId": "logoutUser",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          }
+        }
+      },
+      "/user/id": {
+        "get": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Obtiene un usuario por el id",
+          "description": "",
+          "operationId": "createUsersWithArrayInput",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "List de objeto de todos los usuarios",
+              "required": true,
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          }
+        }
+      }
+    },
+    "securityDefinitions": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+        "flow": "implicit",
+        "scopes": {
+          "write:pets": "modify pets in your account",
+          "read:pets": "read your pets"
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    },
+    "definitions": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "externalDocs": {
+      "description": "Find out more about Swagger",
+      "url": "http://swagger.io"
+    }
+}

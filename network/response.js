@@ -12,7 +12,7 @@ exports.error = function(req, res, message, status){
     let statusMessage = message || 'Iternal server error';
 
     res.status(codeStatus).send({
-        error: statusMessage,
+        error: true,
         status,
         body: message,
     });

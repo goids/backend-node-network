@@ -8,7 +8,7 @@ const db = {
 };
 
 async function list(tabla){
-    return db[tabla];
+    return db[tabla] || [];
 }
 
 async function get(tabla,id){
@@ -17,16 +17,28 @@ async function get(tabla,id){
 }
 
 async function upsert(tabla, data){
+    if(!db[tabla]){
+        db[tabla] = [];
+    }
+
     db[tabla].push(data);
-    console.log(db)
+    //console.log(db)
 }
 
 async function put(tabla, data){
-    db[tabla].name = data;
+    db[tabla][1].name = data;
 }
 
 async function remove(tabla){
     return true;
+}
+
+async function query(tabla, queryData){
+    const col = await list(tabla);
+    const keys = Object.keys(queryData);
+    const key = keys[0];
+    
+    return col.filter( item => item[key] === queryData[key])[0] || null;
 }
 
 module.exports = {
@@ -35,4 +47,5 @@ module.exports = {
     upsert,
     remove,
     put,
+    query,
 }
