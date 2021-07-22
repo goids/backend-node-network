@@ -8,6 +8,7 @@ const config = require('../config');
 
 const user = require('../api/components/user/network');
 const auth = require('../api/components/auth/network');
+const post = require('../api/components/post/network');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 // ROUTER
 app.use('/api/user', user);
 app.use('/api/auth', auth);
+app.use('/api/post', post);
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 // Middleware Erorrs
