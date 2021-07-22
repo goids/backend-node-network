@@ -89,9 +89,16 @@ async function upsert(table, data){
     }
 }
 
-function query(tabla, queryData){
+function query(tabla, queryData, join){
+    let joinQuery = '';
+    if(join){
+        const key = Object.keys(join)[0];
+        const val = join[key];
+        joinQuery = `JOIN ${key} ON ${tabla}.${val} = ${key}.id`
+    }
+
     return new Promise( (resolve, reject) => {
-        connection.query(`SELECT * FROM ${tabla} WHERE ?`, queryData, (err, result) => {
+        connection.query(`SELECT * FROM ${tabla} ${joinQuery} WHERE ${tabla}.?`, queryData, (err, result) => {
             console.error(err)
             if(err) reject(err)
             

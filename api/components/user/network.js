@@ -12,7 +12,8 @@ router.get('/:id', get);
 router.post('/', upsert);
 router.delete('/', remove);
 router.put('/', secure('update'), upsert); // En nodeJS los middleware se agregan entre el medio de los aprametros de la funcion
-router.post('/follow/:id', secure('follow'), follow)
+router.post('/follow/:id', secure('follow'), follow);
+router.get('/:id/following', listFollows)
 
 function list(req, res, next){
     controller.list()
@@ -49,5 +50,11 @@ function follow(req, res, next){
         .then( data => response.success(req, res, data, 201))
         .catch(next)
 };
+
+function listFollows(req, res, next){
+    return controller.getFollows(req.params.id)
+        .then( data => response.success(req, res, data, 200))
+        .catch(next)
+}
 
 module.exports = router;

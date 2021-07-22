@@ -62,6 +62,14 @@ module.exports = function(injectedStore){
         return store.upsert(`${USER}_follow`, follow)
     }
 
+    async function getFollows(userID){
+        const join = {};
+        join[USER]  = 'user_to';
+        const query = { user_from: userID };
+
+        return await store.query(`${USER}_follow`, query, join);
+    }
+
     return {
         list,
         get,
@@ -69,5 +77,6 @@ module.exports = function(injectedStore){
         remove,
         put,
         follow,
+        getFollows
     }
 }
