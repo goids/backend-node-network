@@ -10,10 +10,10 @@ module.exports = {
         secret: process.env.SECRET || 'secreto'
     },
     mysql:{
-        host: process.env.MYSQL_HOST || '',
-        user: process.env.MYSQL_USER || '',
-        password: process.env.MYSQL_PASSWORD || '',
-        database: process.env.MYSQL_DATABASE || '',
+        host: process.env.MYSQL_HOST || 'remotemysql.com',
+        user: process.env.MYSQL_USER || 'RLgNJF8hIB',
+        password: process.env.MYSQL_PASSWORD || 'xKoanJlCro',
+        database: process.env.MYSQL_DATABASE || 'RLgNJF8hIB',
         port: process.env.MYSQL_PORT || '3306',
     },
     mysql_service:{
@@ -22,7 +22,7 @@ module.exports = {
     },
     cache_service:{
         host: process.env.MYSQL_SERVICE_HOST || 'localhost',
-        port: process.env.CACHE_SERVICE_PORT || '3004'
+        port: process.env.CACHE_SERVICE_PORT || '3006'
     },
     redis: {
         host: process.env.REDIS_HOST || 'redis-16702.c51.ap-southeast-2-1.ec2.cloud.redislabs.com',

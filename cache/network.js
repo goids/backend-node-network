@@ -11,6 +11,7 @@ router.put('/:table', upsert);
 
 async function list(req, res, next){
     const data = await store.list(req.params.table);
+    console.log(data);
     response.success(req, res, data, 200);
 }
 

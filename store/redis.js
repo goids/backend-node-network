@@ -17,7 +17,7 @@ function list(table){
 
             let res = data || null;
             if(data){
-                res = JSON.stringify(data);
+                res = JSON.parse(data);
             }
 
             resolve(res);
@@ -26,32 +26,16 @@ function list(table){
 }
 
 async function get(table, id){
-    // return new Promise( (resolve, reject) => {
-    //     client.get(table, (err, data) => {
-    //         if(err) reject(err);
-
-    //         let res = data || null;
-    //         let filter;
-
-    //         if(data){
-    //             filter = data.filter( item => item.id === id)[0] || null;
-    //             res = JSON.stringify(filter);
-    //         }
-
-    //         resolve(res);
-    //     })
-    // })
-    const collection = await list(table);
-    return collection.filter( item => item.id === id)[0] || null;
+    return list(`${table}_${id}`)
 }
 
 async function upsert(table, body){
     let key = table;
-    if(data && data.id){
-        key = `${key}_${data.id}`;
+    if(body && body.id){
+        key = `${key}_${body.id}`;
     }
 
-    client.setex(key, 10, JSON.stringify(data));
+    client.setex(key, 10, JSON.stringify(body));
     return true;
 }
 

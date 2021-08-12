@@ -4,8 +4,9 @@ const auth = require('../auth');
 
 const USER = 'user';
 
-module.exports = function(injectedStore){
+module.exports = function(injectedStore, injectedCache){
     const store = injectedStore;
+    const cache = injectedCache;
 
     // Generar ID solamente numericos
     const alphabet = '0123456789';
@@ -15,12 +16,34 @@ module.exports = function(injectedStore){
         store = require('../../../store/mysql');
     }
 
-    function list(){
-        return store.list(USER);
+    if(!cache){
+        cache = require('../../../store/mysql')
     }
 
-    function get(id){
-        return store.get(USER, id)
+    async function list(){
+        let users = await cache.list(USER);
+
+        if(!users){
+            console.log('No estaba en cache, buscando en la base de datos')
+            users = await store.list(USER);
+            cache.upsert(USER, users);
+        }else{
+            console.log('Traemos los datos de la cache');
+        }
+
+        return users;
+    }
+
+    async function get(id){
+        let user = await cache.list(USER, id);
+
+        if(!user){
+            console.log('No estaba en cache, buscando en la base de datos')
+            user = await store.get(USER, id);
+            cache.upsert(USER, user);
+        }
+
+        return user;
     }
 
     async function upsert(data){
